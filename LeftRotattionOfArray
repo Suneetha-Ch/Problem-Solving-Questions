@@ -37,6 +37,7 @@ namespace arrayLeftRotation
                 {
                     result.Add(a[(d + i) % n]);
                 }
+                //if array: newArray[(i+n-d)%n] = a[i];
 
                 return result;
             
