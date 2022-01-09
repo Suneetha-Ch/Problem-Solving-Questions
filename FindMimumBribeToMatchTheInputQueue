@@ -1,0 +1,88 @@
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.Collections;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
+using System.Text;
+using System;
+
+class Result
+{
+
+    /*
+     * Complete the 'minimumBribes' function below.
+     *
+     * The function accepts INTEGER_ARRAY q as parameter.
+     */
+
+    public static void minimumBribes(int[] q)
+    { 
+        var positions = new Dictionary<int, int>();
+        var originalList = new int[q.Length];
+        int x  = 0;
+        for(int i =0; i< q.Length; ++i){
+            originalList[i] = i+1;
+            positions[i+1] = i;
+        }
+        int totalSwaps =0;
+        int index = 0;
+        int temp;
+        var swapCount = new int[q.Length];
+        for(int i = 0 ; i< q.Length; ++i)
+        {
+            positions.TryGetValue(q[i], out index);
+            while(q[i] != originalList[i] && swapCount[index] <=2)
+            {
+                if(index > i)
+                {
+                    positions[originalList[index]] = index-1;
+                    positions[originalList[index-1]] = index;
+                    temp = originalList[index];
+                    originalList[index] =  originalList[index-1];
+                    originalList[index-1] = temp;
+                    index--;
+                   
+                } 
+                else{
+                    positions[originalList[index]] = index+1;
+                    positions[originalList[index+1]] = index;
+                    temp = originalList[index];
+                    originalList[index] =  originalList[index+1];
+                    originalList[index+1] = temp;
+                    index++;
+                }
+                swapCount[originalList[index]-1] ++;
+                totalSwaps++;
+            }  
+            if(swapCount[index] > 2){
+                Console.WriteLine("Too chaotic");
+                return;
+            } 
+        }
+          Console.WriteLine(totalSwaps);
+    }
+
+}
+
+class Solution
+{
+    public static void Main(string[] args)
+    {
+        int t = Convert.ToInt32(Console.ReadLine().Trim());
+
+        for (int tItr = 0; tItr < t; tItr++)
+        {
+            int n = Convert.ToInt32(Console.ReadLine().Trim());
+
+            List<int> q = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(qTemp =>            Convert.ToInt32(qTemp)).ToList();
+
+            Result.minimumBribes(q.ToArray());
+        }
+    }
+}
