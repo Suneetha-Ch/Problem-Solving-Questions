@@ -1,0 +1,26 @@
+/*https://www.geeksforgeeks.org/a-program-to-check-if-strings-are-rotations-of-each-other/
+sample input : ABCDAN, CDANAB
+output : true */
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+class Solution {
+    static void Main(String[] args) {
+            int TestCases = Convert.ToInt32(Console.ReadLine());
+            for(int i=1; i<= TestCases; ++i)
+            {
+                 string string1 =  Console.ReadLine();
+                 string string2 = Console.ReadLine();
+
+                if (string1.Length == string2.Length && (string1+string1).IndexOf(string2) != -1 )
+                {
+                    Console.WriteLine("YES");
+                }
+                else
+                {
+                    Console.WriteLine("NO");   
+                }
+            }
+    }
+}
