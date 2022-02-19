@@ -1,0 +1,40 @@
+You are given a string s consisting of lowercase English letters. A duplicate removal consists of choosing two adjacent and equal letters and removing them.
+
+We repeatedly make duplicate removals on s until we no longer can.
+Return the final string after all such duplicate removals have been made. It can be proven that the answer is unique.
+The input string is 'DBAABDAB'
+'DBAABDAB' —> 'D B AA B D A B' —> 'D BB D A B' —> 'DD A B' —> 'AB'
+
+using System;
+using System.Collections.Generic;
+
+namespace RemoveDuplicates
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string s = "azxxzy";
+            int i = 0;
+            while (i < s.Length - 1)
+            {
+                if (s[i] != s[i + 1])
+                {
+                    i++;
+                    continue;
+                }
+                s = s.Remove(i, 2);
+                if (i > 0)
+                {
+                    i--;
+                }
+            }
+
+
+            Console.WriteLine("result : {0}", s);
+
+           
+            Console.ReadKey();
+        }
+    }
+}
