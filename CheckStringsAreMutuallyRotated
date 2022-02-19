@@ -1,0 +1,77 @@
+using System;
+
+namespace CheckStringsAreMutuallyRotated
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] words = new string[] { "practice", "makes", "perfect", "coding", "makes" };
+            string word1 = "practice";
+            string word2 = "coding";
+
+            int distance  =  ShortestDistance( words, word1, word2);
+            Console.WriteLine("min distance :{0}", distance);
+            Console.WriteLine("enter string");
+            string input = Console.ReadLine();
+            findSumOfDigitsOfString(input);
+            Console.WriteLine("Enter string 1");
+            string string1 =  Console.ReadLine();
+            Console.WriteLine("Enter string 2");
+            string string2 = Console.ReadLine();
+            bool result = isStringsMutuallyRotated(string1, string2);
+            Console.WriteLine("result: " + result);
+
+        }
+        public static  int ShortestDistance(string[] words, string word1, string word2)
+        {
+            int i1 = -1, i2 = -1;
+            int minDistace = words.Length;
+            for(int i =0;  i< words.Length;  ++i)
+            {
+                if(words[i] == word1)
+                {
+                    i1 = i;
+                }
+                else if (words[i] == word2)
+                {
+                    i2 = i;
+                }
+                if(i1 !=-1 && i2 != -1)
+                {
+                    minDistace = Math.Min(minDistace, Math.Abs(i1 - i2));
+                }
+               
+            }
+            return minDistace;
+        }
+            private static void findSumOfDigitsOfString(string s)
+        {
+            int sum = 0;
+            for(int i = 0 ; i < s.Length; ++i)
+            {
+                if(s[i]>'0' && s[i] < '9')
+                {
+                    sum += Convert.ToInt32(s[i]);
+                }
+            }
+            Console.WriteLine("sum of digits of {0} is:{1} ", s, sum);
+
+        }
+
+        private static bool isStringsMutuallyRotated(string string1, string string2)
+        {
+            if (string1.Length != string2.Length)
+                return false;
+            
+            int d = string2.IndexOf(string1[0]);
+            int n = string2.Length;
+            string result = string1 + string1;
+            if (result.IndexOf(string2) != -1)
+            {
+                return true;
+            }
+            return false;
+        }
+    }
+}
